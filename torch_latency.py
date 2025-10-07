@@ -47,6 +47,7 @@ with torch.profiler.profile(
     for _ in range(5):
         output = torch.matmul(input, weight)
 
+print(prof)
 prof.export_chrome_trace("trace.json")
 # Print profiling results (optional)
 print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
