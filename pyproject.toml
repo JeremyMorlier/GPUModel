@@ -1,0 +1,14 @@
+[project]
+name = "gpumodel"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.3.3",
+    "torch>=2.8.0",
+    "zigzag-dse",
+]
+
+[tool.uv.sources]
+zigzag-dse = { path = "zigzag" }
