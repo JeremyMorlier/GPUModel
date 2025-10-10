@@ -6,38 +6,38 @@ memories:
     r_cost: 1000
     w_cost: 1000
     area: 0
-    latency: 290
+    latency: 1
     operands: [I1, I2, O]
     served_dimensions: [D3, D4]
     ports:
       - name: w_port_1
         type: write
-        bandwidth_min: 32
-        bandwidth_max: 32
+        bandwidth_min: 320
+        bandwidth_max: 320
         allocation: 
           - O, fh
           - I1, fh
           - I2, fh
       - name: r_port_1
         type: read
-        bandwidth_min: 32
-        bandwidth_max: 32
+        bandwidth_min: 320
+        bandwidth_max: 320
         allocation: 
           - O, tl
           - I1, tl
           - I2, tl
       - name: w_port_2
         type: write
-        bandwidth_min: 32
-        bandwidth_max: 32
+        bandwidth_min: 320
+        bandwidth_max: 320
         allocation: 
           - O, fl
           - I1, fl
           - I2, fl
       - name: r_port_2
         type: read
-        bandwidth_min: 32
-        bandwidth_max: 32
+        bandwidth_min: 320
+        bandwidth_max: 320
         allocation: 
           - O, th
           - I1, th
@@ -91,7 +91,7 @@ memories:
       - name: rw_port_1
         type: read_write
         bandwidth_min: 512
-        bandwidth_max: 512
+        bandwidth_max: 5120
         allocation: 
           - I1, fh
           - I1, tl
