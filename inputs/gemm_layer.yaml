@@ -3,7 +3,7 @@
   equation: O[d0][d1]+=I[d0][d2]*W[d2][d1]
   dimension_relations: []
   loop_dims: [D0, D1, D2]
-  loop_sizes: [12800, 12800, 12800]
+  loop_sizes: [1024, 1024, 1024]
   operand_precision:
     W: 16
     I: 16

@@ -1,6 +1,40 @@
 name: a100
 
 memories:
+  reg_O:
+    size: 32
+    r_cost: 0.02  # TODO
+    w_cost: 0.02  # TODO
+    area: 0
+    latency: 1
+    auto_cost_extraction: False
+    operands: [O]
+    ports:
+      - name: r_port_1
+        type: read
+        bandwidth_min: 320
+        bandwidth_max: 320
+        allocation: 
+          - O, tl
+      - name: r_port_2
+        type: read
+        bandwidth_min: 320
+        bandwidth_max: 320
+        allocation: 
+          - O, th
+      - name: w_port_1
+        type: write
+        bandwidth_min: 32
+        bandwidth_max: 32
+        allocation: 
+          - O, fh
+      - name: w_port_2
+        type: write
+        bandwidth_min: 32
+        bandwidth_max: 32
+        allocation: 
+          - O, fl
+    served_dimensions: [D3]
   rf:
     size: 524288
     r_cost: 1000
@@ -10,38 +44,29 @@ memories:
     operands: [I1, I2, O]
     served_dimensions: [D3, D4]
     ports:
-      - name: w_port_1
-        type: write
-        bandwidth_min: 320
-        bandwidth_max: 320
+      - name: rw_port_1
+        type: read_write
+        bandwidth_min: 8
+        bandwidth_max: 256
+        allocation: 
+          - I2, fh
+          - I2, tl
+      - name: rw_port_2
+        type: read_write
+        bandwidth_min: 8
+        bandwidth_max: 256
         allocation: 
           - O, fh
-          - I1, fh
-          - I2, fh
-      - name: r_port_1
-        type: read
-        bandwidth_min: 320
-        bandwidth_max: 320
-        allocation: 
           - O, tl
-          - I1, tl
-          - I2, tl
-      - name: w_port_2
-        type: write
-        bandwidth_min: 320
-        bandwidth_max: 320
-        allocation: 
           - O, fl
-          - I1, fl
-          - I2, fl
-      - name: r_port_2
-        type: read
-        bandwidth_min: 320
-        bandwidth_max: 320
-        allocation: 
           - O, th
-          - I1, th
-          - I2, th
+      - name: rw_port_1
+        type: read_write
+        bandwidth_min: 8
+        bandwidth_max: 256
+        allocation: 
+          - I1, fh
+          - I1, tl
   l1: 
     size: 1572864
     r_cost: 1000
@@ -51,33 +76,18 @@ memories:
     operands: [I1, I2, O]
     served_dimensions: [D2, D3, D4]
     ports:
-      - name: rw_port_1
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, tl
-      - name: rw_port_2
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I2, tl
-      - name: rw_port_3
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 2048
-        allocation: 
-          - O, tl
-          - O, fl
       - name: rw_port_4  # DMA port
         type: read_write
         bandwidth_min: 64
-        bandwidth_max: 512
+        bandwidth_max: 8120
         allocation: 
           - I1, fh
+          - I1, tl
           - I2, fh
+          - I2, tl
           - O, fh
+          - O, tl
+          - O, fl
           - O, th
   l2:
     size: 663224320
@@ -112,150 +122,7 @@ memories:
       - name: rw_port_1
         type: read_write
         bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_2
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_3
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_4
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_5
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_6
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_7
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_8
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_9
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_10
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_11
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
-        allocation: 
-          - I1, fh
-          - I1, tl
-          - I2, fh
-          - I2, tl
-          - O, fh
-          - O, tl
-          - O, fl
-          - O, th
-      - name: rw_port_12
-        type: read_write
-        bandwidth_min: 64
-        bandwidth_max: 512
+        bandwidth_max: 6144
         allocation: 
           - I1, fh
           - I1, tl

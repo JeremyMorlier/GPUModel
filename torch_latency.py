@@ -2,7 +2,8 @@ import torch
 import torch.profiler
 
 # Define matrix dimensions
-D0, D1, D2 = 12800, 12800, 12800
+d = 12800
+D0, D1, D2 = d, d, d
 
 # Create random FP16 tensors
 input = torch.randn(D0, D2, dtype=torch.float16, device="cuda")
@@ -48,7 +49,7 @@ with torch.profiler.profile(
         output = torch.matmul(input, weight)
 
 print(prof)
-prof.export_chrome_trace("trace.json")
+prof.export_chrome_trace("trace2.json")
 # Print profiling results (optional)
 print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
 
